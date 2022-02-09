@@ -1,8 +1,11 @@
 /*
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
+
     http://www.apache.org/licenses/LICENSE-2.0
+
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -151,8 +154,6 @@ func generateDeployment(tb *tensorboardv1alpha1.Tensorboard, log logr.Logger, r 
 	var volumes []corev1.Volume
 	var mountpath, subpath string = tb.Spec.LogsPath, ""
 	var affinity = &corev1.Affinity{}
-	// Yulong
-	var envFromSource []corev1.EnvFromSource
 
 	//In this case, a PVC is used as a log storage for the Tensorboard server.
 	if !isCloudPath(tb.Spec.LogsPath) {
@@ -224,14 +225,6 @@ func generateDeployment(tb *tensorboardv1alpha1.Tensorboard, log logr.Logger, r 
 				},
 			},
 		})
-	} else if isS3Path(tb.Spec.LogsPath) {
-		envFromSource = append(envFromSource, corev1.EnvFromSource{
-			SecretRef: &corev1.SecretEnvSource{
-				LocalObjectReference: corev1.LocalObjectReference{
-					Name: "minio-tb-secret",
-				},
-			},
-		})
 	}
 
 	return &appsv1.Deployment{
@@ -270,7 +263,6 @@ func generateDeployment(tb *tensorboardv1alpha1.Tensorboard, log logr.Logger, r 
 								},
 							},
 							VolumeMounts: volumeMounts,
-							EnvFrom:      envFromSource,
 						},
 					},
 					Volumes: volumes,
@@ -356,10 +348,6 @@ func isCloudPath(path string) bool {
 
 func isGoogleCloudPath(path string) bool {
 	return strings.HasPrefix(path, "gs://")
-}
-
-func isS3Path(path string) bool {
-	return strings.HasPrefix(path, "s3://")
 }
 
 func isPVCPath(path string) bool {
