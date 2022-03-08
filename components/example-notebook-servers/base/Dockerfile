@@ -1,5 +1,9 @@
 FROM ubuntu:20.04
 
+RUN export http_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+
+RUN export https_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+
 # common environemnt variables
 ENV NB_USER jovyan
 ENV NB_UID 1000
