@@ -1,6 +1,7 @@
 # Build the manager binary
-ARG GOLANG_VERSION=1.15
+ARG GOLANG_VERSION=1.18
 FROM golang:${GOLANG_VERSION} as builder
+#FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-go:1.17 AS builder
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
@@ -14,6 +15,7 @@ RUN go mod download
 COPY main.go main.go
 COPY api/ api/
 COPY controllers/ controllers/
+RUN which dash
 RUN cp /bin/dash /workspace/dash
 
 # Build
@@ -25,7 +27,8 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then \
 
 # Use distroless as minimal base image to package the manager binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
-FROM gcr.io/distroless/base:latest as serve
+#FROM gcr.io/distroless/base:latest as serve
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-ubuntu:20.04 as serve
 WORKDIR /
 COPY --from=builder /workspace/dash /bin/dash
 
