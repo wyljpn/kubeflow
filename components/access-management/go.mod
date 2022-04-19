@@ -3,16 +3,16 @@ module github.com/kubeflow/kubeflow/components/access-management
 go 1.12
 
 require (
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/google/btree v1.0.0 // indirect
 	github.com/gorilla/mux v1.7.2
 	github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc // indirect
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/kubeflow/kubeflow/components/profile-controller v0.0.0-20191008230951-321c1d3313b6
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
-	github.com/prometheus/client_golang v0.9.2
-	github.com/prometheus/common v0.2.0 // indirect
-	github.com/prometheus/procfs v0.0.0-20190219184716-e4d4a2206da0 // indirect
-	github.com/sirupsen/logrus v1.4.2
+	github.com/prometheus/client_golang v1.11.1
+	github.com/sirupsen/logrus v1.6.0
+	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4 // indirect
 	istio.io/api v0.0.0-20201125194658-3cee6a1d3ab4
 	istio.io/client-go v1.8.0
