@@ -1,9 +1,9 @@
 
 # Image URL to use all building/pushing image targets
-IMG ?= gcr.io/kubeflow-images-public/notebook-controller
-TAG ?= $(shell git describe --tags --always)
+IMG ?= klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-notebook-controller
+TAG ?= v1.3.0
 SHELL := /bin/bash
-GOLANG_VERSION ?= 1.15
+GOLANG_VERSION ?= 1.18.1
 
 # Whether to use cached images with GCB
 USE_IMAGE_CACHE ?= true

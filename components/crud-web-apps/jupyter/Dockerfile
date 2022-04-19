@@ -1,5 +1,5 @@
 # --- Build the backend kubeflow-wheel ---
-FROM python:3.7-slim-buster AS backend-kubeflow-wheel
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-python:3.7.10 AS backend-kubeflow-wheel
 
 WORKDIR /src
 
@@ -7,13 +7,25 @@ COPY ./common/backend/ .
 RUN python3 setup.py bdist_wheel
 
 # --- Build the frontend kubeflow library ---
-FROM node:12-buster-slim as frontend-kubeflow-lib
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-node:12.10.0-build-1 as frontend-kubeflow-lib
+
+# Yulong start
+# To upgrade version
+RUN apt-get update && apt-get install -y curl
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y \
+  nodejs
+RUN echo "Node: " && node -v
+RUN echo "NPM: " && npm -v
+# Yulong end
 
 WORKDIR /src
 
 ENV NG_CLI_ANALYTICS "ci"
 COPY ./common/frontend/kubeflow-common-lib/package.json ./
 COPY ./common/frontend/kubeflow-common-lib/package-lock.json ./
+
+
 RUN npm ci
 
 COPY ./common/frontend/kubeflow-common-lib/projects ./projects
@@ -22,7 +34,17 @@ COPY ./common/frontend/kubeflow-common-lib/tsconfig.json .
 RUN npm run build
 
 # --- Build the frontend ---
-FROM node:12-buster-slim as frontend
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-node:12.10.0-build-1 as frontend
+
+# Yulong start
+# To upgrade version
+RUN apt-get update && apt-get install -y curl
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y \
+  nodejs
+RUN echo "Node: " && node -v
+RUN echo "NPM: " && npm -v
+# Yulong end
 
 WORKDIR /src
 
@@ -42,7 +64,7 @@ RUN npm run build -- --output-path=./dist/default --configuration=production
 RUN npm run build -- --output-path=./dist/rok --configuration=rok-prod
 
 # Web App
-FROM python:3.7-slim-buster
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-python:3.7.10
 
 WORKDIR /package
 COPY --from=backend-kubeflow-wheel /src .
@@ -58,4 +80,4 @@ COPY ./jupyter/backend/entrypoint.py .
 COPY --from=frontend /src/dist/default/ /src/apps/default/static/
 COPY --from=frontend /src/dist/rok/ /src/apps/rok/static/
 
-ENTRYPOINT ["/bin/bash","-c","gunicorn -w 3 --bind 0.0.0.0:5000 --access-logfile - entrypoint:app"]
+ENTRYPOINT ["/bin/bash","-c","gunicorn -w 3 --bind [::]:5000 --access-logfile - entrypoint:app"]

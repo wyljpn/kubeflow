@@ -256,7 +256,7 @@ func generateDeployment(tb *tensorboardv1alpha1.Tensorboard, log logr.Logger, r 
 					Containers: []corev1.Container{
 						{
 							Name:            "tensorboard",
-							Image:           "tensorflow/tensorflow:2.1.0",
+							Image:           "klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-tensorflow:2.2.0",
 							ImagePullPolicy: "IfNotPresent",
 							Command:         []string{"/usr/local/bin/tensorboard"},
 							WorkingDir:      "/",

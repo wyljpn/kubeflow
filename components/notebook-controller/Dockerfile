@@ -6,8 +6,9 @@
 #
 # This is necessary because the Jupyter controller now depends on
 # components/common
-ARG GOLANG_VERSION=1.15
+ARG GOLANG_VERSION=1.18.1
 FROM golang:${GOLANG_VERSION} as builder
+#FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-go:1.17 as builder
 
 WORKDIR /workspace
 

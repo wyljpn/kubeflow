@@ -2,7 +2,7 @@ PROJECT ?= kubeflow-dev
 # Image URL to use all building/pushing image targets
 IMG ?= klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-profile-controller
 TAG ?= v1.3.1-rc.0
-GOLANG_VERSION ?= 1.7
+GOLANG_VERSION ?= 1.18
 CONTROLLER_GEN_VERSION ?= 0.4.0
 
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)

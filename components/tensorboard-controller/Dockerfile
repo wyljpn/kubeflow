@@ -3,9 +3,12 @@
 #
 # ${PATH_TO_KUBEFLOW/KUBEFLOW repo}/components
 #
+# You should run Dockerfile under components
 # This is necessary because the Jupyter controller now depends on
 # components/common
-FROM golang:1.17 as builder
+#FROM golang:1.17.7 as builder
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-go:1.17 AS builder
+
 
 WORKDIR /workspace
 # Copy the Go Modules manifests

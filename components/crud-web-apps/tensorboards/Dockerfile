@@ -1,5 +1,5 @@
 # --- Build the backend kubeflow-wheel ---
-FROM python:3.8-slim-buster AS backend-kubeflow-wheel
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-python:3.8 AS backend-kubeflow-wheel
 
 WORKDIR /src
 
@@ -7,7 +7,17 @@ COPY ./common/backend/ .
 RUN python3 setup.py bdist_wheel
 
 # --- Build the frontend kubeflow library ---
-FROM node:12-buster-slim as frontend-kubeflow-lib
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-node:12.10.0-build-1 as frontend-kubeflow-lib
+
+# Yulong start
+# To upgrade version
+RUN apt-get update && apt-get install -y curl
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y \
+  nodejs
+RUN echo "Node: " && node -v
+RUN echo "NPM: " && npm -v
+# Yulong end
 
 WORKDIR /src
 
@@ -22,7 +32,17 @@ COPY ./common/frontend/kubeflow-common-lib/tsconfig.json .
 RUN npm run build
 
 # --- Build the frontend ---
-FROM node:12-buster-slim as frontend
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-node:12.10.0-build-1 as frontend
+
+# Yulong start
+# To upgrade version
+RUN apt-get update && apt-get install -y curl
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y \
+  nodejs
+RUN echo "Node: " && node -v
+RUN echo "NPM: " && npm -v
+# Yulong end
 
 WORKDIR /src
 
@@ -41,7 +61,14 @@ COPY --from=frontend-kubeflow-lib /src/dist/kubeflow/ ./node_modules/kubeflow/
 RUN npm run build -- --output-path=./dist --configuration=production
 
 # Web App
-FROM python:3.8-slim-buster
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-python:3.8
+
+#RUN apt-get update && apt-get install -y curl
+#RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
+#RUN apt-get install -y \
+#  nodejs
+#RUN echo "Node: " && node -v
+#RUN echo "NPM: " && npm -v
 
 WORKDIR /package
 COPY --from=backend-kubeflow-wheel /src .
@@ -57,4 +84,4 @@ COPY ./tensorboards/backend/Makefile .
 
 COPY --from=frontend /src/dist/ /src/app/static/
 
-ENTRYPOINT ["/bin/bash","-c","gunicorn -w 3 --bind 0.0.0.0:5000 --access-logfile - entrypoint:app"]
+ENTRYPOINT ["/bin/bash","-c","gunicorn -w 3 --bind [::]:5000 --access-logfile - entrypoint:app"]

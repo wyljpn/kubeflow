@@ -1,5 +1,5 @@
-GIT_TAG ?= $(shell git describe --tags --always)
-IMG ?= public.ecr.aws/j1r0q0g6/notebooks/tensorboards-web-app
+GIT_TAG ?= v1.3.1
+IMG ?= klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-tensorboards-web-app
 DOCKERFILE=tensorboards/Dockerfile
 
 docker-build:

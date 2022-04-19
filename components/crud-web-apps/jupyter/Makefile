@@ -1,5 +1,5 @@
-GIT_TAG ?= $(shell git describe --tags --always)
-IMG ?= public.ecr.aws/j1r0q0g6/notebooks/jupyter-web-app
+GIT_TAG ?= v1.3.0
+IMG ?= klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-jupyter-web-app
 DOCKERFILE ?= jupyter/Dockerfile
 
 docker-build:
