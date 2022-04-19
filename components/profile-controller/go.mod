@@ -8,28 +8,24 @@ require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/go-logr/logr v0.2.1
 	github.com/go-logr/zapr v0.3.0 // indirect
-	github.com/golang/protobuf v1.4.3 // indirect
-	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/onsi/ginkgo v1.13.0
 	github.com/onsi/gomega v1.10.2
-	github.com/prometheus/client_golang v1.7.1
-	github.com/prometheus/common v0.14.0 // indirect
-	github.com/prometheus/procfs v0.2.0 // indirect
+	github.com/prometheus/client_golang v1.11.1
 	github.com/sirupsen/logrus v1.6.0
 	github.com/stretchr/testify v1.6.1
-	github.com/tidwall/gjson v1.4.0
+	github.com/tidwall/gjson v1.9.3
 	go.opencensus.io v0.22.5 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0 // indirect
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
-	golang.org/x/sys v0.0.0-20200826173525-f9321e4c35a6 // indirect
+	golang.org/x/text v0.3.7 // indirect; indirectt
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
-	golang.org/x/tools v0.0.0-20201017001424-6003fad69a88 // indirect
+	golang.org/x/tools v0.0.0-20201017001424-6003fad69a88 // indirect; indirec
 	gomodules.xyz/jsonpatch/v2 v2.1.0 // indirect
 	google.golang.org/api v0.30.0
 	google.golang.org/genproto v0.0.0-20201019141844-1ed22bb0c154 // indirect
@@ -48,7 +44,6 @@ require (
 	k8s.io/kube-openapi v0.0.0-20200831175022-64514a1d5d59 // indirect
 	k8s.io/utils v0.0.0-20201015054608-420da100c033 // indirect
 	sigs.k8s.io/controller-runtime v0.6.3
-	sigs.k8s.io/controller-tools v0.4.0 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.0.2 // indirect
 )
 
