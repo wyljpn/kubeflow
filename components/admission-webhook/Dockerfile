@@ -1,5 +1,5 @@
 # Build the manager binary
-ARG GOLANG_VERSION=1.12
+ARG GOLANG_VERSION=1.18.1
 FROM golang:${GOLANG_VERSION} as builder
 
 # Copy in the go src
@@ -17,7 +17,9 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then \
     fi
 
 # Copy the controller-manager into a distroless image
-FROM gcr.io/distroless/static-debian10:fd0d99e8c54d7d7b2f3dd29f5093d030d192cbbc
+#FROM gcr.io/distroless/static-debian10:fd0d99e8c54d7d7b2f3dd29f5093d030d192cbbc
+FROM klstg-docker.slb-wartifactory-v.stg.rmn.local/rakuten/rflow/rflow-ubuntu:20.04
+
 WORKDIR /
 COPY --from=builder /go/src/github.com/kubeflow/kubeflow/components/admission-webhook/webhook .
 ENTRYPOINT ["/webhook"]
