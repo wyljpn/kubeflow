@@ -1,1 +1,2 @@
 gunicorn
+PyYAML==5.4b1
