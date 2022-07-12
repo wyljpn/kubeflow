@@ -1,3 +1,6 @@
+# 20220712 Yulong
+# centraldashboard
+
 # Step 1: Builds and tests
 FROM node:12.22.12-alpine AS build
 
@@ -13,11 +16,11 @@ RUN apk update && apk upgrade && \
     echo @stable http://nl.alpinelinux.org/alpine/latest-stable/community >> /etc/apk/repositories && \
     echo @stable http://nl.alpinelinux.org/alpine/latest-stable/main >> /etc/apk/repositories
 
-RUN apk add --no-cache bash chromium@stable nss@stable \
-    freetype@stable \
-    harfbuzz@stable \
-    ttf-freefont@stable \
-    libstdc++@stable
+RUN apk add --no-cache bash chromium nss \
+    freetype \
+    harfbuzz \
+    ttf-freefont \
+    libstdc++
 
 RUN if [ "$(uname -m)" = "aarch64" ]; then \
         apk update && apk upgrade && \
