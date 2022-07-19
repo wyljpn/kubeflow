@@ -228,7 +228,7 @@ func generateDeployment(tb *tensorboardv1alpha1.Tensorboard, log logr.Logger, r 
 		envFromSource = append(envFromSource, corev1.EnvFromSource{
 			SecretRef: &corev1.SecretEnvSource{
 				LocalObjectReference: corev1.LocalObjectReference{
-					Name: "minio-tb-secret",
+					Name: "minio-s3-secret",
 				},
 			},
 		})
